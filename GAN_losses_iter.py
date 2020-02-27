@@ -44,10 +44,10 @@ parser.add_argument('--n_gpu', type=int, default=1, help='number of GPUs to use'
 
 
 
-################ change to 9 for pu loss ####################
-################ change to 10 for pu LS loss ################
+################ change to 5 for pu loss ####################
+################ change to 6 for pu LS loss ################
 
-parser.add_argument('--loss_D', type=int, default=9, help='Loss of D, see code for details (1=GAN, 2=LSGAN, 3=WGAN-GP, 4=HingeGAN, 5=RSGAN, 6=RaSGAN, 7=RaLSGAN, 8=RaHingeGAN, 9=PUGAN, 10=PULSGAN)')
+parser.add_argument('--loss_D', type=int, default=9, help='Loss of D, see code for details (1=GAN, 2=LSGAN, 3=WGAN-GP, 4=HingeGAN, 5=PUGAN, 6=PULSGAN)')
 
 
 parser.add_argument('--prior', type=float, default=0.3, help='the hyper-parameter for positive unlabal loss, the value indicate the proportion of real data in mixed data (including both real and fake data), by default, we need to start with a small value')
@@ -667,14 +667,6 @@ for i in range(iter_offset, param.n_iter):
 			x_fake.data.resize_(fake.data.size()).copy_(fake.data)
 			y_pred_fake = D(x_fake.detach())
 			if param.loss_D == 5:
-				errD = BCE_stable(y_pred - y_pred_fake, y)
-			if param.loss_D == 6:
-				errD = (BCE_stable(y_pred - torch.mean(y_pred_fake), y) + BCE_stable(y_pred_fake - torch.mean(y_pred), y2))/2
-			if param.loss_D == 7: # (y_hat-1)^2 + (y_hat+1)^2
-				errD = (torch.mean((y_pred - torch.mean(y_pred_fake) - y) ** 2) + torch.mean((y_pred_fake - torch.mean(y_pred) + y) ** 2))/2
-			if param.loss_D == 8:
-				errD = (torch.mean(torch.nn.ReLU()(1.0 - (y_pred - torch.mean(y_pred_fake)))) + torch.mean(torch.nn.ReLU()(1.0 + (y_pred_fake - torch.mean(y_pred)))))/2
-			if param.loss_D == 9:
 
 			################################
 			# discriminator loss for pugan #
@@ -704,7 +696,7 @@ for i in range(iter_offset, param.n_iter):
 				zero.data.fill_(0)
 				errD = errD_positive_risk + torch.max(zero, errD_negative_risk)
 
-            if param.loss_D == 10:
+            if param.loss_D == 6:
 
             ##################################
 			# discriminator loss for PULSGAN #
@@ -787,26 +779,10 @@ for i in range(iter_offset, param.n_iter):
 			errG = -torch.mean(y_pred_fake)
 		if param.loss_D == 4:
 			errG = -torch.mean(y_pred_fake)
-		if param.loss_D == 5:
-			y_pred = D(x)
-			# Non-saturating
-			errG = BCE_stable(y_pred_fake - y_pred, y)
-		if param.loss_D == 6:
-			y_pred = D(x)
-			# Non-saturating
-			y2.data.resize_(current_batch_size).fill_(0)
-			errG = (BCE_stable(y_pred - torch.mean(y_pred_fake), y2) + BCE_stable(y_pred_fake - torch.mean(y_pred), y))/2
-		if param.loss_D == 7:
-			y_pred = D(x)
-			errG = (torch.mean((y_pred - torch.mean(y_pred_fake) + y) ** 2) + torch.mean((y_pred_fake - torch.mean(y_pred) - y) ** 2))/2
-		if param.loss_D == 8:
-			y_pred = D(x)
-			# Non-saturating
-			errG = (torch.mean(torch.nn.ReLU()(1.0 + (y_pred - torch.mean(y_pred_fake)))) + torch.mean(torch.nn.ReLU()(1.0 - (y_pred_fake - torch.mean(y_pred)))))/2
-		if param.loss_D == 9:
+		if param.loss_D == :5
 			# g loss for PUGAN, simply using the g loss of standard GAN
 			errG = BCE_stable(y_pred_fake, y)
-        if param.loss_D == 10:
+        if param.loss_D == 6:
             # g loss for PULSGAN, using the g loss of LSGAN
             errG = torch.mean((y_pred_fake - y) ** 2)
     
