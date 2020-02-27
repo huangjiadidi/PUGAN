@@ -103,7 +103,7 @@ if param.loss_D == 8:
 if param.loss_D == 9:
 	title = 'puGAN_'
 if param.loss_D == 10:
-    title = 'puLSGAN_"
+    title = 'puLSGAN_'
 if param.seed is not None:
 	title = title + 'seed%i' % param.seed
 
@@ -671,20 +671,20 @@ for i in range(iter_offset, param.n_iter):
 			################################
 			# discriminator loss for pugan #
 			################################
-				if (param.prior_increase_mode == 0) {
+				if (param.prior_increase_mode == 0):
 					if (i + 1) % 10000 == 0:
 						prior += 0.1
 						if (prior >= 0.6):
 							prior = 0.6
 						# print("updated loss", prior)
-				} else if (param.prior_increase_mode == 1) {
+				elif (param.prior_increase_mode == 1):
 					prior = prior
-				} else if (param.prior_increase_mode == 2) {
+				elif (param.prior_increase_mode == 2):
 					if (i + 1) % 10000 == 0:
 						prior += 0.2
 						if (prior >= 0.6):
 							prior = 0.6
-				}
+				
 				
 				errD_real = BCE_stable(y_pred, y)
 				errD_real_f = BCE_stable(y_pred,y2)
@@ -696,33 +696,30 @@ for i in range(iter_offset, param.n_iter):
 				zero.data.fill_(0)
 				errD = errD_positive_risk + torch.max(zero, errD_negative_risk)
 
-            if param.loss_D == 6:
+			if param.loss_D == 6:
 
             ##################################
 			# discriminator loss for PULSGAN #
 			##################################
 			
-				if (param.prior_increase_mode == 0) {
+				if (param.prior_increase_mode == 0):
 					if (i + 1) % 10000 == 0:
 						prior += 0.1
 						if (prior >= 0.6):
 							prior = 0.6
 						# print("updated loss", prior)
-				} else if (param.prior_increase_mode == 1) {
+				elif (param.prior_increase_mode == 1):
 					prior = prior
-				} else if (param.prior_increase_mode == 2) {
+				elif (param.prior_increase_mode == 2):
 					if (i + 1) % 10000 == 0:
 						prior += 0.2
 						if (prior >= 0.6):
 							prior = 0.6
-				}
-                
-                errD_real = torch.mean((y_pred - y) ** 2)
-                errD_real_f = torch.mean((y_pred + y) ** 2)
-                errD_fake =  torch.mean((y_pred_fake + y) ** 2)
-
-                errD_positive_risk = prior * errD_real
-                errD_negative_risk = errD_fake - prior * errD_real_f
+				errD_real = torch.mean((y_pred - y) ** 2)
+				errD_real_f = torch.mean((y_pred + y) ** 2)
+				errD_fake =  torch.mean((y_pred_fake + y) ** 2)
+				errD_positive_risk = prior * errD_real
+				errD_negative_risk = errD_fake - prior * errD_real_f
 
                 zero.data.fill_(0)
                 errD = errD_positive_risk + torch.max(zero, errD_negative_risk)
@@ -779,7 +776,7 @@ for i in range(iter_offset, param.n_iter):
 			errG = -torch.mean(y_pred_fake)
 		if param.loss_D == 4:
 			errG = -torch.mean(y_pred_fake)
-		if param.loss_D == :5
+		if param.loss_D == 5:
 			# g loss for PUGAN, simply using the g loss of standard GAN
 			errG = BCE_stable(y_pred_fake, y)
         if param.loss_D == 6:
