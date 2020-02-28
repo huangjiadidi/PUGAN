@@ -4,6 +4,8 @@ The pytorch implemtation of the paper [on positive-unlabeled classification in g
 
 The code is based on the code provided by https://github.com/AlexiaJM/RelativisticGAN.
 
+The paper has been accepted by CVPR 2020.
+
 # Implementation
 
 **Requirement**
@@ -18,16 +20,25 @@ The code is based on the code provided by https://github.com/AlexiaJM/Relativist
 * make sure all required folders are created, including a output folder to save model, a extra folder to save generated images and a inception folder for inception model. 
 * if you want to use CAT dataset: Run setting_up_script.sh in same folder as preprocess_cat_dataset.py and your CAT dataset (open and run manually)
 
-**usage**
+**Usage**
 * run 'GAN_losses_iter.py' (please check the arguements in the code carefully, including the argument for change the model and hyperprarmeter)
 
-e.g. to train a PUSGAN model with 64x64 size images: `python3 GAN_losses_iter.py --image_size=64 --loss_D=5 --prior=0.3 --prior_increase_mode=1 --input_folder=/path/to/input_image/dir/ --output_folder=/path/to/output/dir --extra_folder=/path/to/generated_image/dir --inception_folder=/path/to/inception/dir`
+* e.g. to train a PUSGAN model with 64x64 size images: `python3 GAN_losses_iter.py --image_size=64 --loss_D=5 --prior=0.3 --prior_increase_mode=1 --input_folder=/path/to/input_image/dir/ --output_folder=/path/to/output/dir --extra_folder=/path/to/generated_image/dir --inception_folder=/path/to/inception/dir`
 
 **to calculate the FID sorce**
 * make sure you save the generated images in the extra folder for calculation
 * run `python fid.py "/path/to/saved_generated_image/dir/01" "/path/to/real_image/dir" -i "/path/to/Inception/dir" --gpu "0"`
 
 # The algorithm of PUGAN
+
+* PUGAN combines the concept of positive unlabeled classification with GAN. In the later stage of training, some generated data could be very similar to real data which we shouldn't consider them as the fake data and distinguish them strictly. Instead, let's consider the generated dataset as the mixed dataset, including positive data (high quality generated data) and negative data (the low quality generated data). Thus, the target of discriminator will be changed to: find the positive data in the mixed data based on the real data and separate them with negative data. In this case, we expect that the generator will focus on improving the low-quality results, and less modification on high-quality results.
+
+* the general loss function will be:
+![](https://latex.codecogs.com/gif.latex?%5Cunderset%7BG%7D%7Bmax%7D%5C%20%5Cunderset%7BD%7D%7Bmin%7DV%28D%2C%20G%29%20%3D%20%5Cpi%5Cmathbb%7BE%7D_%7Bp_%7Bdata%7D%7D%5Bf_1%28D%28x%29%29%5D%20&plus;%20max%5C%7B0%2C%20%5Cmathbb%7BE%7D_%7Bp_z%7D%5Bf_2%28D%28G%28z%29%29%29%5D%5C%7D%20-%20%5Cpi%5Cmathbb%7BE%7D_%7Bp_%7Bdata%7D%7D%5Bf_2%28D%28x%29%29%5D%5C%7D)
+
+It is easy to adapt PU concept into different framework of GAN.
+
+
 
 ```python
 
@@ -72,3 +83,11 @@ errD = errD_positive_risk + torch.max(zero, errD_negative_risk)
 # G loss for PULSGAN
 errG = torch.mean((y_pred_fake - y) ** 2)
 ```
+
+# Citation
+``@article{guo2020positive,
+  title={On Positive-Unlabeled Classification in GAN},
+  author={Guo, Tianyu and Xu, Chang and Huang, Jiajun and Wang, Yunhe and Shi, Boxin and Xu, Chao and Tao, Dacheng},
+  journal={arXiv preprint arXiv:2002.01136},
+  year={2020}
+}``
