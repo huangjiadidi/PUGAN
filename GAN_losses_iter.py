@@ -1,9 +1,6 @@
-
+# The code is based on the code provided by https://github.com/AlexiaJM/RelativisticGAN
 
 #!/usr/bin/env python3
-
-# To get TensorBoard output, use the python command: tensorboard --logdir /home/alexia/Output/DCGAN
-# TensorBoard disabled for now.
 
 # To get CIFAR10
 # wget http://pjreddie.com/media/files/cifar.tgz
@@ -51,8 +48,8 @@ parser.add_argument('--loss_D', type=int, default=9, help='Loss of D, see code f
 
 
 parser.add_argument('--prior', type=float, default=0.3, help='the hyper-parameter for positive unlabal loss, the value indicate the proportion of real data in mixed data (including both real and fake data), by default, we need to start with a small value')
-parser.add_argument('--prior_increase_mode', type=float, default=0, help='the increase mode of prior value during the training process, 0=basic(slow increase by increasing 0.1 per 100000 itre until 0.7\
-																		1=fixed prior, 2=fast increase (increase 0.2 per 100000 itre until 0.7))')
+parser.add_argument('--prior_increase_mode', type=float, default=0, help='the increase mode of prior value during the training process, 0=basic(slow increase by increasing 0.1 per 100000 itre until 0.6\
+																		1=fixed prior, 2=fast increase (increase 0.2 per 100000 itre until 0.6))')
 #############################################################
 
 parser.add_argument('--Diters', type=int, default=1, help='Number of iterations of D')
@@ -93,16 +90,8 @@ if param.loss_D == 3:
 if param.loss_D == 4:
 	title = 'HingeGAN_'
 if param.loss_D == 5:
-	title = 'RSGAN_'
-if param.loss_D == 6:
-	title = 'RaSGAN_'
-if param.loss_D == 7:
-	title = 'RaLSGAN_'
-if param.loss_D == 8:
-	title = 'RaHingeGAN_'
-if param.loss_D == 9:
 	title = 'puGAN_'
-if param.loss_D == 10:
+if param.loss_D == 6:
     title = 'puLSGAN_'
 if param.seed is not None:
 	title = title + 'seed%i' % param.seed
@@ -676,14 +665,16 @@ for i in range(iter_offset, param.n_iter):
 						prior += 0.1
 						if (prior >= 0.6):
 							prior = 0.6
-						# print("updated loss", prior)
+						print("updated prior", prior)
 				elif (param.prior_increase_mode == 1):
 					prior = prior
+					print("updated prior", prior)
 				elif (param.prior_increase_mode == 2):
 					if (i + 1) % 10000 == 0:
 						prior += 0.2
 						if (prior >= 0.6):
 							prior = 0.6
+						print("updated prior", prior)
 				
 				
 				errD_real = BCE_stable(y_pred, y)
@@ -707,14 +698,16 @@ for i in range(iter_offset, param.n_iter):
 						prior += 0.1
 						if (prior >= 0.6):
 							prior = 0.6
-						# print("updated loss", prior)
+						print("updated prior", prior)
 				elif (param.prior_increase_mode == 1):
 					prior = prior
+					print("updated prior", prior)
 				elif (param.prior_increase_mode == 2):
 					if (i + 1) % 10000 == 0:
 						prior += 0.2
 						if (prior >= 0.6):
 							prior = 0.6
+						print("updated prior", prior)
 				errD_real = torch.mean((y_pred - y) ** 2)
 				errD_real_f = torch.mean((y_pred + y) ** 2)
 				errD_fake =  torch.mean((y_pred_fake + y) ** 2)
