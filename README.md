@@ -15,14 +15,14 @@ The code is based on the code provided by https://github.com/AlexiaJM/Relativist
 
 
 **Before you run the code**
-* make sure all required folder are create
+* make sure all required folders are created (check the argument help of code)
 * if you want to use CAT dataset: Run setting_up_script.sh in same folder as preprocess_cat_dataset.py and your CAT dataset (open and run manually)
 
 **to run**
 * run 'GAN_losses_iter.py' (please check the arguements in the code carefully, including the argument for change the model and hyperprarmeter)
 
 **to calculate the FID sorce**
-* be sure you save the generated image for calculation
+* make sure you save the generated images for calculation
 * run 'fid.py' (please check the arguements before you run)
 
 # The algorithm of PUGAN
