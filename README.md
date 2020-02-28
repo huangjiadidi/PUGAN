@@ -11,6 +11,8 @@ The code is based on the code provided by https://github.com/AlexiaJM/Relativist
 * python 3.7.3
 * lastest numpy
 * lastest tensorflow (if you want to use our FID code)
+* [Cat Dataset](http://academictorrents.com/details/c501571c29d16d7f41d159d699d0e7fb37092cbd) (if you want to use it)
+
 
 **Before you run the code**
 * make sure all required folder are create
