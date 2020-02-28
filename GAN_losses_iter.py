@@ -15,7 +15,7 @@ def strToBool(str):
 import argparse
 parser = argparse.ArgumentParser()
 parser.register('type', 'bool', strToBool)
-parser.add_argument('--image_size', type=int, default=256)
+parser.add_argument('--image_size', type=int, default=64)
 parser.add_argument('--batch_size', type=int, default=32) # DCGAN paper original value used 128 (32 is generally better to prevent vanishing gradients with SGAN and LSGAN, not important with relativistic GANs)
 parser.add_argument('--n_colors', type=int, default=3)
 parser.add_argument('--z_size', type=int, default=128)

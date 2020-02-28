@@ -250,7 +250,7 @@ if __name__ == "__main__":
         help='GPU to use (leave blank for CPU only)')
     parser.add_argument("--output_dir", default="output/Extra", type=str,
         help='Directory to store logging results')
-    parser.add_argument("--output_name", default="D_new_pu_G_s_256_increase", type=str,
+    parser.add_argument("--output_name", default="fid_score", type=str,
         help='Name of method used, to use when logging results')
     parser.add_argument("--at", default=100000, type=int,
         help='Number of iteration, to use when logging results')
