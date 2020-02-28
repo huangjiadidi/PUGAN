@@ -40,7 +40,10 @@ x_fake.data.resize_(fake.data.size()).copy_(fake.data)
 y_pred_fake = D(x_fake.detach())
 
 
-# calculating the D loss for PUGAN
+# the hyper parameter prior, indicating the proportion of real data in the mixed data (you can change it such as increasing it during the training processes)
+prior = 0.3
+
+# calculating the D pu loss for standard GAN 
 errD_real = BCE_stable(y_pred, y)
 errD_real_f = BCE_stable(y_pred,y2)
 errD_fake = BCE_stable(y_pred_fake, y2)
@@ -50,4 +53,20 @@ errD_negative_risk = errD_fake - prior * errD_real_f
 
 zero.data.fill_(0)
 errD = errD_positive_risk + torch.max(zero, errD_negative_risk)
+
+# G loss for PUSGAN
+errG = BCE_stable(y_pred_fake, y)
+
+
+# calculating the D pu loss for LSGAN
+errD_real = torch.mean((y_pred - y) ** 2)
+errD_real_f = torch.mean((y_pred + y) ** 2)
+errD_fake =  torch.mean((y_pred_fake + y) ** 2)
+errD_positive_risk = prior * errD_real
+errD_negative_risk = errD_fake - prior * errD_real_f
+zero.data.fill_(0)
+errD = errD_positive_risk + torch.max(zero, errD_negative_risk)
+
+# G loss for PULSGAN
+errG = torch.mean((y_pred_fake - y) ** 2)
 ```

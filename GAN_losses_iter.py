@@ -658,7 +658,7 @@ for i in range(iter_offset, param.n_iter):
 			if param.loss_D == 5:
 
 			################################
-			# discriminator loss for pugan #
+			# discriminator pu loss for standard GAN #
 			################################
 				if (param.prior_increase_mode == 0):
 					if (i + 1) % 10000 == 0:
