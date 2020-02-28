@@ -10,6 +10,7 @@ The code is based on the code provided by https://github.com/AlexiaJM/Relativist
 * lastest pytorch
 * python 3.7.3
 * lastest numpy
+* lastest tensorflow (if you want to use our FID code)
 
 **Before you run the code**
 * make sure all required folder are create
@@ -17,6 +18,10 @@ The code is based on the code provided by https://github.com/AlexiaJM/Relativist
 
 **to run**
 * run 'GAN_losses_iter.py' (please check the arguements in the code carefully, including the argument for change the model and hyperprarmeter)
+
+**to calculate the FID sorce**
+* be sure you save the generated image for calculation
+* run 'fid.py' (please check the arguements before you run)
 
 # The algorithm of PUGAN
 
