@@ -698,7 +698,7 @@ for i in range(iter_offset, param.n_iter):
 
 			if param.loss_D == 6:
 
-            ##################################
+			##################################
 			# discriminator loss for PULSGAN #
 			##################################
 			
@@ -720,9 +720,8 @@ for i in range(iter_offset, param.n_iter):
 				errD_fake =  torch.mean((y_pred_fake + y) ** 2)
 				errD_positive_risk = prior * errD_real
 				errD_negative_risk = errD_fake - prior * errD_real_f
-
-                zero.data.fill_(0)
-                errD = errD_positive_risk + torch.max(zero, errD_negative_risk)
+				zero.data.fill_(0)
+				errD = errD_positive_risk + torch.max(zero, errD_negative_risk)
 
 			errD_real = errD
 			errD_fake = errD
@@ -779,9 +778,9 @@ for i in range(iter_offset, param.n_iter):
 		if param.loss_D == 5:
 			# g loss for PUGAN, simply using the g loss of standard GAN
 			errG = BCE_stable(y_pred_fake, y)
-        if param.loss_D == 6:
-            # g loss for PULSGAN, using the g loss of LSGAN
-            errG = torch.mean((y_pred_fake - y) ** 2)
+		if param.loss_D == 6:
+			# g loss for PULSGAN, using the g loss of LSGAN
+			errG = torch.mean((y_pred_fake - y) ** 2)
     
 
 		errG.backward()
