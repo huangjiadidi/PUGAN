@@ -2,8 +2,6 @@
 
 The pytorch implemtation of the paper [on positive-unlabeled classification in gan](https://arxiv.org/abs/2002.01136). 
 
-The code is based on the code provided by https://github.com/AlexiaJM/RelativisticGAN.
-
 The paper has been accepted by CVPR 2020.
 
 # Implementation
@@ -13,12 +11,11 @@ The paper has been accepted by CVPR 2020.
 * python 3.7.3
 * numpy (lastest version)
 * tensorflow (lastest version, don't need to download it you don't need to calculcate fid)
-* [Cat Dataset](http://academictorrents.com/details/c501571c29d16d7f41d159d699d0e7fb37092cbd) (if you want to use it)
-
 
 **Before you run the code**
 * make sure all required folders are created, including a output folder to save model, an extra folder to save generated images and an inception folder for inception model. 
-* if you want to use CAT dataset: Run setting_up_script.sh in same folder as preprocess_cat_dataset.py and your CAT dataset (open and run manually)
+
+* if you want to use [Cat Dataset](http://academictorrents.com/details/c501571c29d16d7f41d159d699d0e7fb37092cbd): Run setting_up_script.sh in same folder as preprocess_cat_dataset.py and your CAT dataset (open and run manually)
 
 **Usage**
 * run 'GAN_losses_iter.py' (please check the arguements in the code carefully, including the argument for change the model and hyperprarmeter)
@@ -87,9 +84,11 @@ errG = torch.mean((y_pred_fake - y) ** 2)
 ```
 
 # Citation
-``@article{guo2020positive,
-  title={On Positive-Unlabeled Classification in GAN},
-  author={Guo, Tianyu and Xu, Chang and Huang, Jiajun and Wang, Yunhe and Shi, Boxin and Xu, Chao and Tao, Dacheng},
-  journal={arXiv preprint arXiv:2002.01136},
-  year={2020}
+``@misc{guo2020positiveunlabeled,
+    title={On Positive-Unlabeled Classification in GAN},
+    author={Tianyu Guo and Chang Xu and Jiajun Huang and Yunhe Wang and Boxin Shi and Chao Xu and Dacheng Tao},
+    year={2020},
+    eprint={2002.01136},
+    archivePrefix={arXiv},
+    primaryClass={cs.LG}
 }``
