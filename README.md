@@ -84,7 +84,7 @@ errG = torch.mean((y_pred_fake - y) ** 2)
 ```
 
 # Citation
-``@misc{guo2020positiveunlabeled,
+``@inproceedings{guo2020positiveunlabeled,
     title={On Positive-Unlabeled Classification in GAN},
     author={Tianyu Guo and Chang Xu and Jiajun Huang and Yunhe Wang and Boxin Shi and Chao Xu and Dacheng Tao},
     year={2020},
