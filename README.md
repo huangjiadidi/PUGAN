@@ -10,7 +10,7 @@ The paper has been accepted by CVPR 2020.
 * pytorch (lastest version)
 * python 3.7.3
 * numpy (lastest version)
-* tensorflow (lastest version, don't need to download it you don't need to calculcate fid)
+* tensorflow (lastest version, don't need to download if you don't need to calculcate fid)
 
 **Before you run the code**
 * make sure all required folders are created, including a output folder to save model, an extra folder to save generated images and an inception folder for inception model. 
